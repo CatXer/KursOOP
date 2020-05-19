@@ -7,14 +7,14 @@ namespace KursOOP
         private Control.ControlCollection root; // Панель-контейнер из главной формы
 
         private ArrayInfoPanel() { /* Don`t call without root Panel */ }
-       
+
         // Конструктор панели
         public ArrayInfoPanel(Control.ControlCollection root)
         {
             InitializeComponent();
             this.root = root;
         }
-        
+
         // Реализация метода прикрепления
         public void Attach()
         {
@@ -27,7 +27,7 @@ namespace KursOOP
             int triangleCount = 0;
             int rhombusCount = 0;
             int circleCount = 0;
-            
+
             // Цикл для расчёта колличества объектов каждого типа
             for (int i = 0; i < manager.GetCount(); i++)
             {

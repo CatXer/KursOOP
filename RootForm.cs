@@ -134,7 +134,7 @@ namespace KursOOP
 
         private void MainList_SelectedIndexChanged(object sender, EventArgs e) // Обработка смены выбранного элемента в списке
         {
-            
+
             EntityManager manager = EntityManager.GetInstance();
             // Даём информацию о выбранном индексе в репозиторий..
             manager.SetSelectedIndex(MainList.SelectedIndex);
@@ -165,7 +165,7 @@ namespace KursOOP
         }
 
         // Метод, вызывающийся при изменении текста в TextBox InpIndex, который нужен для ввода индексов
-        private void InpIndex_TextChanged(object sender, EventArgs e) 
+        private void InpIndex_TextChanged(object sender, EventArgs e)
         {
             int index = -1;
             try

@@ -93,9 +93,9 @@ namespace KursOOP
                 // Если фигура не была Triangle
                 if (NewFigure is null || NewFigure.GetType() != typeof(Triangle))
                     NewFigure = new Triangle();// То создаётся новый объект
-                LabelType.Text = NewFigure.GetName();
-                InpParam1.Text = ((Triangle)NewFigure).GetBase().ToString();//и в поле заносится сторона треугольника
-                InpParam2.Text = ((Triangle)NewFigure).GetHeight().ToString();
+                LabelType.Text = NewFigure.Name;
+                InpParam1.Text = ((Triangle)NewFigure).Base.ToString();//и в поле заносится сторона треугольника
+                InpParam2.Text = ((Triangle)NewFigure).Height.ToString();
             }
         }
 
@@ -118,9 +118,9 @@ namespace KursOOP
 
                 if (NewFigure is null || NewFigure.GetType() != typeof(Rhombus))
                     NewFigure = new Rhombus();
-                LabelType.Text = NewFigure.GetName();
-                InpParam1.Text = ((Rhombus)NewFigure).GetD1().ToString();
-                InpParam2.Text = ((Rhombus)NewFigure).GetD2().ToString();
+                LabelType.Text = NewFigure.Name;
+                InpParam1.Text = ((Rhombus)NewFigure).D1.ToString();
+                InpParam2.Text = ((Rhombus)NewFigure).D2.ToString();
             }
         }
 
@@ -141,8 +141,8 @@ namespace KursOOP
 
                 if (NewFigure is null || NewFigure.GetType() != typeof(Circle))
                     NewFigure = new Circle();
-                LabelType.Text = NewFigure.GetName();
-                InpParam1.Text = ((Circle)NewFigure).GetRadius().ToString();
+                LabelType.Text = NewFigure.Name;
+                InpParam1.Text = ((Circle)NewFigure).Radius.ToString();
             }
         }
 
@@ -172,19 +172,19 @@ namespace KursOOP
                         {
                             case Circle c:
                                 {
-                                    c.SetRadius(Convert.ToDouble(InpParam1.Text));
+                                    c.Radius = Convert.ToDouble(InpParam1.Text);
                                 }
                                 break;
                             case Rhombus r:
                                 {
-                                    r.SetD1(Convert.ToDouble(InpParam1.Text));
-                                    r.SetD2(Convert.ToDouble(InpParam2.Text));
+                                    r.D1 = Convert.ToDouble(InpParam1.Text);
+                                    r.D2 = Convert.ToDouble(InpParam2.Text);
                                 }
                                 break;
                             case Triangle t:
                                 {
-                                    t.SetBase(Convert.ToDouble(InpParam1.Text));
-                                    t.SetHeight(Convert.ToDouble(InpParam2.Text));
+                                    t.Base = Convert.ToDouble(InpParam1.Text);
+                                    t.Height = Convert.ToDouble(InpParam2.Text);
                                 }
                                 break;
                             default:

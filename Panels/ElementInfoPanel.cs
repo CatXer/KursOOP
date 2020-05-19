@@ -7,14 +7,14 @@ namespace KursOOP
         private Control.ControlCollection root; // Панель-контейнер из главной формы
 
         private ElementInfoPanel() { /* Don`t call without root Panel */ }
-       
+
         // Конструктор панели
         public ElementInfoPanel(Control.ControlCollection root)
         {
             InitializeComponent();
             this.root = root;
         }
-       
+
         // Реализация метода прикрепления
         public void Attach()
         {
@@ -38,8 +38,8 @@ namespace KursOOP
 
             // Установка общих свединий в TextBox`ы (на уровне Figure без Upcast)
             Index.Text = manager.GetSelectedIndex().ToString();
-            ElementName.Text = selected.GetName();
-            LabelType.Text = selected.GetName();
+            ElementName.Text = selected.Name;
+            LabelType.Text = selected.Name;
             // Площадь так-же расчитывается на уровне Figure
             Area.Show();
             Area.Text = "Площадь: ";
@@ -58,7 +58,7 @@ namespace KursOOP
                         Param2.Text = "Радиус: ";
                         ValParam2.Show();
                         // Во избежание поехавших строк за frame width используется общее фоматирование
-                        ValParam2.Text = string.Format("{0:0.000}", c.GetRadius().ToString());
+                        ValParam2.Text = string.Format("{0:0.000}", c.Radius.ToString());
                         // Аналогично, только с результатами методов...
                         Addition.Show();
                         Addition.Text = "Диаметр: ";
@@ -73,9 +73,9 @@ namespace KursOOP
                         Param2.Show();
                         Param2.Text = "Вторая диагональ: ";
                         ValParam1.Show();
-                        ValParam1.Text = string.Format("{0:0.000}", r.GetD1());
+                        ValParam1.Text = string.Format("{0:0.000}", r.D1);
                         ValParam2.Show();
-                        ValParam2.Text = string.Format("{0:0.000}", r.GetD2());
+                        ValParam2.Text = string.Format("{0:0.000}", r.D2);
 
 
                         Addition.Show();
@@ -91,9 +91,9 @@ namespace KursOOP
                         Param2.Show();
                         Param2.Text = "Высота: ";
                         ValParam1.Show();
-                        ValParam1.Text = string.Format("{0:0.000}", t.GetBase());
+                        ValParam1.Text = string.Format("{0:0.000}", t.Base);
                         ValParam2.Show();
-                        ValParam2.Text = string.Format("{0:0.000}", t.GetHeight());
+                        ValParam2.Text = string.Format("{0:0.000}", t.Height);
 
                         Addition.Show();
                         Addition.Text = "Периметр: ";

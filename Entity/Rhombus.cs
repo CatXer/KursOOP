@@ -4,53 +4,33 @@ namespace KursOOP
 {
     public class Rhombus : Figure // Описание класса Ромб
     {
-        // Приватные поля..
-        private double d1, d2;
+        // Автосвойства ввода и вывода полей
+        public double D1 { get; set; }
+        public double D2 { get; set; }
 
         // Конструктор без параметров
         public Rhombus() : base("Ромб")
         {
-            d1 = 10;
-            d2 = 14;
+            D1 = 10;
+            D2 = 14;
         }
 
         // Конструктор с параметрами
         public Rhombus(double d1, double d2) : base("Ромб")
         {
-            this.d1 = d1;
-            this.d2 = d2;
-        }
-
-        // Геттеры и Сеттеры для приватных полей
-        public double GetD1()
-        {
-            return d1;
-        }
-
-        public double GetD2()
-        {
-            return d2;
-        }
-
-        public void SetD1(double d1)
-        {
-            this.d1 = d1;
-        }
-
-        public void SetD2(double d2)
-        {
-            this.d2 = d2;
+            D1 = d1;
+            D2 = d2;
         }
 
         // Определённые и переопределённые методы..
         public double Perimeter()
         {
-            return 4 * Math.Sqrt((d1 * d1 + d2 * d2) / 4);
+            return 4 * Math.Sqrt((D1 * D1 + D2 * D2) / 4);
         }
 
         public override double Area()
         {
-            return 0.5 * d1 * d2;
+            return 0.5 * D1 * D2;
         }
     }
 }
