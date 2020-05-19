@@ -7,121 +7,154 @@ namespace KursOOP
 
     public partial class RootForm : Form
     {
-        private enum Panels
+        private enum Panels //Перечисление для переключения между панелям
         {
-            info,
+            elementInfo,
             edit,
-            insert
+            insert,
+            arrayInfo
         }
 
+        // Словарь с соответствиями Элемент перечисления - объект, реализующий интерфейс IContentPanel
         private IDictionary<Panels, IContentPanel> panels;
+        // Контейнер для хранения объекта текущей панели
         private IContentPanel active;
 
-
-
+        // Конструктор для инициализации..
         public RootForm()
         {
             InitializeComponent();
+            // Создание и инициализация объекта словаря
             panels = new Dictionary<Panels, IContentPanel>()
             {
-                {Panels.info, new InfoPanel(this, ContentPanel.Controls)},
-                {Panels.edit, new EditPanel(this, ContentPanel.Controls)},
-                {Panels.insert, new InsertPanel(this, ContentPanel.Controls)}
-
+                {Panels.elementInfo, new ElementInfoPanel(ContentPanel.Controls)},
+                {Panels.edit, new InsertPanel(this, ContentPanel.Controls, true)},
+                {Panels.insert, new InsertPanel(this, ContentPanel.Controls, false)},
+                {Panels.arrayInfo, new ArrayInfoPanel(ContentPanel.Controls)}
             };
         }
 
-        internal void UpdateUI()
+        internal void UpdateUI()// метод для обновления элементов пользовательского интерфейса 
         {
+            int selected = MainList.SelectedIndex;
             MainList.Items.Clear();
+            // Вызов Singleton объекта Менеджера фигур
             EntityManager manager = EntityManager.GetInstance();
-            for (int i = 0; i < manager.GetLength(); i++)
+            for (int i = 0; i < manager.GetCount(); i++)
             {
                 Figure figure = manager.Get(i);
-                MainList.Items.Add(i + ":    " + ((figure is null) ? ("-") : ("+    " + figure.getName())));
+
+                // Дифференциация объектов по типу..
+                string element = ":    -";
+                switch (figure)
+                {
+                    case Circle _:
+                        element = ":    +    3";
+                        break;
+                    case Rhombus _:
+                        element = ":    +    2";
+                        break;
+                    case Triangle _:
+                        element = ":    +    1";
+                        break;
+                }
+                // Добавление строки в список
+                MainList.Items.Add(i + element);
             }
-            MainList.SetSelected(0, true);
+            // Если ранее был выбран элемент, необходимо сохранить на нём фокус
+            MainList.SetSelected((selected > 0) ? selected : 0, true);
         }
 
-        private void Navigate(Panels type)
+        private void Navigate(Panels type) // Метод, который выполняет процедуру навигации между панелями
         {
+            // Если есть неоткреплённая панель, её необходимо откремить от панели-контейнера
             if (active != null && ContentPanel.Controls.Contains(active.GetMainPanel()))
             {
                 active.Dettach();
             }
+            // Приклепление новой панели к контейнеру
             active = panels[type];
             active.Attach();
         }
 
-        private void BtCreateArray_Click(object sender, EventArgs e)
+        private void BtCreateArray_Click(object sender, EventArgs e) // Обработка нажатия на кнопку "Задать Массив"
         {
-            try//если нет ошибок конвертации
+            try
             {
+                // Проверка на пустое поле ввода числа элементов
                 if (!InpItemCount.Text.Equals(""))
                 {
-                    EntityManager.GetInstance(Convert.ToInt32(InpItemCount.Text)).GetLength();
+                    int count = Convert.ToInt32(InpItemCount.Text);
+                    // Если число отрицательное или равно 0, то вывод ошибки...
+                    if (count <= 0) throw new FormatException();
+                    // Инициализация Singleton объекта-репозитория объетов фигур
+                    EntityManager.GetInstance(count);
 
+                    // Активация всего интерфейса (Всё корректно и ошибок нет)
                     InpItemCount.Enabled = false;
                     BtCreateArray.Enabled = false;
                     BtArrayInfo.Enabled = true;
                     InpIndex.Enabled = true;
+                    // Вызов детального обновления интерфейса (MainList)
                     UpdateUI();
                 }
-                else
+                else // Вывод предупреждения
                 {
                     MessageBox.Show("Вы не ввели длину массива..", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            catch (FormatException)//иначе ошибка
+            catch (FormatException) // Если внутри Try произошла ошибка конвертации
             {
                 MessageBox.Show("Длинна должна быть только из одного числа [0-9]!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                InpItemCount.Text = "";
+                InpItemCount.Focus();
             }
         }
 
-        private void BtArrayInfo_Click(object sender, EventArgs e)
+        private void BtArrayInfo_Click(object sender, EventArgs e) // Обработка нажатия на кнопку "Информация о массиве"
         {
-            /*
-             * 4.	В каждый момент времени, по запросу, программа должна сообщать, 
-             * сколько и каких элементов уже помещено в массив, 
-             * сколько свободных мест осталось.
-             */
+            // Вызов метода навигации на соответствующий экран информации..
+            Navigate(Panels.arrayInfo);
         }
 
-        private void BtShowInfo_Click(object sender, EventArgs e)
+        private void BtShowInfo_Click(object sender, EventArgs e) // Обработка нажатия на кнопку "Информация об элементе"
         {
-            Navigate(Panels.info);
+            Navigate(Panels.elementInfo);
         }
 
-        private void BtChangeObject_Click(object sender, EventArgs e)
+        private void BtChangeObject_Click(object sender, EventArgs e) // Обработка нажатия на кнопку "Изменить объект"
         {
             Navigate(Panels.edit);
         }
 
-        private void BtAddObject_Click(object sender, EventArgs e)
+        private void BtAddObject_Click(object sender, EventArgs e) // Обработка нажатия на кнопку "Добавить элемент"
         {
             Navigate(Panels.insert);
         }
 
-        private void MainList_SelectedIndexChanged(object sender, EventArgs e)
+        private void MainList_SelectedIndexChanged(object sender, EventArgs e) // Обработка смены выбранного элемента в списке
         {
+            
             EntityManager manager = EntityManager.GetInstance();
+            // Даём информацию о выбранном индексе в репозиторий..
             manager.SetSelectedIndex(MainList.SelectedIndex);
 
-            if (!manager.IsSelected())
+            if (!manager.IsSelected())// Редкое событие (потеря фокуса -> индекс -1)
             {
+                // Всё управляющие элементы деактивируются
                 InpIndex.Text = "";
                 BtAddObject.Enabled = false;
                 BtChangeObject.Enabled = false;
                 BtShowInfo.Enabled = false;
             }
-            else if (manager.GetSelected() is null)
+            else if (manager.GetSelected() is null) // Вариант при выборе вакантной ячейки
             {
                 InpIndex.Text = MainList.SelectedIndex.ToString();
                 BtAddObject.Enabled = true;
                 BtChangeObject.Enabled = false;
                 BtShowInfo.Enabled = false;
             }
-            else
+            else // Вариант при выборе занятой ячейки
             {
                 InpIndex.Text = MainList.SelectedIndex.ToString();
                 BtAddObject.Enabled = false;
@@ -131,43 +164,50 @@ namespace KursOOP
 
         }
 
-        private void InpIndex_TextChanged(object sender, EventArgs e)
+        // Метод, вызывающийся при изменении текста в TextBox InpIndex, который нужен для ввода индексов
+        private void InpIndex_TextChanged(object sender, EventArgs e) 
         {
             int index = -1;
-            try//если нет ошибок конвертации
+            try
             {
+                // Проверка на пустой ввод
                 if (!InpIndex.Text.Equals(""))
                 {
+                    // Конвертация из строки TextBox в int
                     index = Convert.ToInt32(InpIndex.Text);
-                    if (index < 0)
+                    if (index < 0) // При отрицательном вводе
                     {
-                        throw new FormatException();
+                        throw new IndexOutOfRangeException();
                     }
-                    else if (index >= MainList.Items.Count)
+                    else if (index >= MainList.Items.Count) // При вводе несуществубщих индексов
                     {
                         throw new IndexOutOfRangeException();
                     }
                     else
                     {
+                        // Успешный выбор элемента
                         MainList.SetSelected(index, true);
                     }
                 }
                 else
                 {
+                    // При вводе пустой строки список снимает выделение с элемента
                     MainList.ClearSelected();
                 }
             }
-            catch (FormatException)//иначе ошибка
+            catch (FormatException)// Ошибка конвертации
             {
                 MainList.ClearSelected();
                 MessageBox.Show("Допускается вводить только натуральные числа или 0!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 InpIndex.Text = "";
+                InpIndex.Focus();
             }
-            catch (IndexOutOfRangeException)
+            catch (IndexOutOfRangeException)// Ошибка выхода за рамки массива (несуществующая ячейка)
             {
                 MainList.ClearSelected();
                 MessageBox.Show("Элемента с индексом = [" + index.ToString() + "] не существует!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 InpIndex.Text = "";
+                InpIndex.Focus();
             }
         }
     }

@@ -6,6 +6,11 @@
         private Figure[] Figures;
         private int SelectedIndex = -1;
 
+        private EntityManager()
+        {
+
+        }
+
         private EntityManager(int count)
         {
             Figures = new Figure[count];
@@ -26,9 +31,17 @@
         }
 
 
-        public int GetLength()
+        public int GetCount()
         {
             return Figures.Length;
+        }
+
+        public int GetFreeCount()
+        {
+            int freeCount = 0;
+            foreach (Figure f in Figures)
+                freeCount += (f is null) ? 1 : 0;
+            return freeCount;
         }
 
         public Figure Get(int i)
@@ -44,6 +57,10 @@
         public void SetSelectedIndex(int index)
         {
             this.SelectedIndex = index;
+        }
+        public int GetSelectedIndex()
+        {
+            return this.SelectedIndex;
         }
 
         public bool IsSelected()

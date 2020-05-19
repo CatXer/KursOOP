@@ -97,6 +97,7 @@
             this.Param2.Size = new System.Drawing.Size(35, 13);
             this.Param2.TabIndex = 7;
             this.Param2.Text = "label3";
+            this.Param2.Visible = false;
             // 
             // Param1
             // 
@@ -106,6 +107,7 @@
             this.Param1.Size = new System.Drawing.Size(35, 13);
             this.Param1.TabIndex = 6;
             this.Param1.Text = "label4";
+            this.Param1.Visible = false;
             // 
             // InpParam2
             // 
@@ -113,6 +115,7 @@
             this.InpParam2.Name = "InpParam2";
             this.InpParam2.Size = new System.Drawing.Size(100, 20);
             this.InpParam2.TabIndex = 5;
+            this.InpParam2.Visible = false;
             // 
             // InpParam1
             // 
@@ -120,6 +123,7 @@
             this.InpParam1.Name = "InpParam1";
             this.InpParam1.Size = new System.Drawing.Size(100, 20);
             this.InpParam1.TabIndex = 4;
+            this.InpParam1.Visible = false;
             // 
             // RbCircle
             // 

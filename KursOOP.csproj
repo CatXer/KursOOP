@@ -51,18 +51,18 @@
     <Compile Include="Entity\Figure.cs" />
     <Compile Include="Entity\Rhombus.cs" />
     <Compile Include="Entity\Triangle.cs" />
-    <Compile Include="Panels\EditPanel.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Panels\EditPanel.Designer.cs">
-      <DependentUpon>EditPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="IContentPanel.cs" />
-    <Compile Include="Panels\InfoPanel.cs">
+    <Compile Include="Panels\ArrayInfoPanel.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Panels\InfoPanel.Designer.cs">
-      <DependentUpon>InfoPanel.cs</DependentUpon>
+    <Compile Include="Panels\ArrayInfoPanel.Designer.cs">
+      <DependentUpon>ArrayInfoPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\ElementInfoPanel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Panels\ElementInfoPanel.Designer.cs">
+      <DependentUpon>ElementInfoPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="RootForm.cs">
       <SubType>Form</SubType>
@@ -78,11 +78,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Panels\EditPanel.resx">
-      <DependentUpon>EditPanel.cs</DependentUpon>
+    <EmbeddedResource Include="Panels\ArrayInfoPanel.resx">
+      <DependentUpon>ArrayInfoPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Panels\InfoPanel.resx">
-      <DependentUpon>InfoPanel.cs</DependentUpon>
+    <EmbeddedResource Include="Panels\ElementInfoPanel.resx">
+      <DependentUpon>ElementInfoPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RootForm.resx">
       <DependentUpon>RootForm.cs</DependentUpon>

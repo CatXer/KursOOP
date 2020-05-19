@@ -1,24 +1,29 @@
 ﻿namespace KursOOP
 {
-    public abstract class Figure//базовый абстрактный класс фигуры
+    public abstract class Figure// Базовый абстрактный класс фигуры
     {
         private string name;
-        public Figure()//конструктор без параметров
+
+        public Figure()// Конструктор без параметров
         {
-            setName("Figure");
+            SetName("Figure");
         }
-        public Figure(string name)//конструктор с параметрами
+
+        public Figure(string name)// Конструктор с параметрами
         {
-            setName(name);
+            SetName(name);
         }
-        public string getName()//методы get и set для закрытого поля класса
+        
+        public string GetName()// Методы get и set для закрытого поля класса
         {
             return name;
         }
-        public void setName(string name)
+        
+        public void SetName(string name)
         {
             this.name = name;
         }
-        abstract public double Area();//абстрактный метод вычисления площади фигуры
+
+        abstract public double Area();// Абстрактный метод вычисления площади фигуры
     }
 }

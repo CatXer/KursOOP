@@ -2,43 +2,47 @@
 
 namespace KursOOP
 {
-    public class Triangle : Figure
+    public class Triangle : Figure // Описание класса Треугольник
     {
-
+        // Приватные поля..
         private double Base, height;
 
+        // Конструктор без параметров
         public Triangle() : base("Треугольник")
         {
             Base = 6;
             height = 8;
         }
 
-        public Triangle(double Base, double height) : base("Triangle")
+        // Конструктор с параметрами
+        public Triangle(double Base, double height) : base("Треугольник")
         {
             this.Base = Base;
             this.height = height;
         }
 
-        public double getBase()
+        // Геттеры и Сеттеры для приватных полей
+        public double GetBase()
         {
             return Base;
         }
 
-        public double getHeight()
+        public double GetHeight()
         {
             return height;
         }
 
-        public void setBase(double s)
+        public void SetBase(double Base)
         {
-            Base = s;
+            this.Base = Base;
         }
 
-        public void setHeight(double s)
+        public void SetHeight(double height)
         {
-            height = s;
+            this.height = height;
         }
 
+        // Определённые и переопределённые методы..
         public override double Area()
         {
             return Base * height / 2;
@@ -48,6 +52,5 @@ namespace KursOOP
         {
             return Math.Sqrt(Math.Pow(Base / 2.0, 2) + height * height) + height + Base;
         }
-
     }
 }

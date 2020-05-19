@@ -2,35 +2,40 @@
 
 namespace KursOOP
 {
-    public class Circle : Figure
+    public class Circle : Figure // Описание класса Окружность
     {
+        // Приватные поля..
         private double radius;
 
-        public Circle() : base("Circle")
+        // Конструктор без параметров
+        public Circle() : base("Окружность")
         {
             radius = 5;
         }
 
-        public Circle(double radius) : base("Circle")
+        // Конструктор с параметрами
+        public Circle(double radius) : base("Окружность")
         {
             this.radius = radius;
         }
 
-        public double getRadius()
+        // Геттеры и Сеттеры для приватных полей
+        public double GetRadius()
         {
             return radius;
         }
 
-        public void setRadius(double s)
+        public void SetRadius(double radius)
         {
-            radius = s;
+            this.radius = radius;
         }
 
-       
+        // Определённые и переопределённые методы..
         public override double Area()
         {
             return Math.PI * radius * radius;
         }
+
         public double Diametre()
         {
             return radius * 2;
